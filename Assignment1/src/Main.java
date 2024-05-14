@@ -8,14 +8,17 @@ public class Main {
 
         // Initialize string values
         String str1 = "Hello";
-        String str2 = "Java";
-        String str3 = "World";
+        String str2 = "World";
+        String str3 = "of Java";
 
         // Print average of the numbers
-        System.out.println("Average is: " + findAverage(num1, num2, num3, num4));
+        System.out.println("Four number average is: " + findAverage(num1, num2, num3, num4));
 
         // Print sum of lengths of the strings
-        System.out.println("Sum of Strings length is : " + sumStringLengths(str1, str2, str3));
+        System.out.print("Sum of Strings length is : " + sumStringLengths(str1, str2, str3));
+
+        // Print amount of character and space
+        countCharAndSpace(str1, str2, str3);
     }
 
     // Calculate average of four numbers
@@ -26,5 +29,20 @@ public class Main {
     // Calculate sum of lengths of three strings
     static int sumStringLengths(String str1, String str2, String str3) {
         return str1.length() + str2.length() + str3.length();
+    }
+
+    // Space Counter
+    static void countCharAndSpace(String str1, String str2, String str3) {
+        int spaceCount = 0;
+        int charCount;
+        String sentence = str1 + str2 + str3;
+        char[] charArray = sentence.toCharArray();
+
+        for (char c : charArray) {
+            if (c == ' ')
+                spaceCount++;
+        }
+        charCount = (sentence.length() - spaceCount);
+        System.out.println(" --> " + charCount + " of them are Character and " + spaceCount + " is Space");
     }
 }
