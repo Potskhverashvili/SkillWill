@@ -13,16 +13,16 @@ public class Main {
         printPower(2, 1);
         printPower(2, 2);
         printPower(2, 3);
-        printPower(2,4);
+        printPower(2, 4);
         System.out.println();
         printPower(3, 0);
         printPower(3, 1);
         printPower(3, 2);
         printPower(3, 3);
+        printPower(3, 4);
     }
 
-    // ------------------------ First Task --------------------------
-
+    // ------------------------ First Task Solution --------------------------
     static void printAnimalType(String animal) {
         // Convert the input to uppercase for case-insensitive comparison
         String upperCaseAnimal = animal.toUpperCase();
@@ -44,12 +44,12 @@ public class Main {
         }
     }
 
-    // --------------------- Second Task ----------------------
-
+    // --------------------- Second Task Solution ----------------------
     static void printPower(int base, int exponent) {
         System.out.println(base + "^" + exponent + "= " + powerWithWhile(base, exponent));
     }
 
+    // Power method using While loop
     static int powerWithWhile(int base, int exponent) {
         // base^0 = 1
         if (exponent == 0) return 1;
@@ -61,6 +61,7 @@ public class Main {
         return result;
     }
 
+    // Power method using For loop
     static int powerWithFor(int base, int exponent) {
         // base^0 = 1
         if (exponent == 0) return 1;
