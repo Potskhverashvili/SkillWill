@@ -1,48 +1,71 @@
 public class Main {
     public static void main(String[] args) {
-        // Initialize integer values
-        int num1 = 4;
-        int num2 = 3;
-        int num3 = 7;
-        int num4 = 9;
+        // Initialize an array of integers
+        int[] nums = {3, 3, 2, 3};
 
-        // Initialize string values
-        String str1 = "Hello";
-        String str2 = "World";
-        String str3 = "of Java";
+        // Initialize an array of strings
+        String[] str = {"Hello", "World", "of Java"};
 
-        // Print average of the numbers
-        System.out.println("Four number average is: " + findAverage(num1, num2, num3, num4));
+        System.out.println("-------- First Task ---------");
+        printAverage(nums);
 
-        // Print sum of lengths of the strings
-        System.out.print("Sum of Strings length is : " + sumStringLengths(str1, str2, str3));
-
-        // Print amount of character and space
-        countCharAndSpace(str1, str2, str3);
+        System.out.println("\n------- Second Task ---------");
+        printStringLengthSum(str);
     }
 
-    // Calculate average of four numbers
-    static int findAverage(int num1, int num2, int num3, int num4) {
-        return (num1 + num2 + num3 + num4) / 4;
+    // --------------------------------- First Task Solution -----------------------------
+    static void printAverage(int[] nums) {
+        System.out.println("Entered " + nums.length +
+                " numbers average is: " + findAverage(nums));
     }
 
-    // Calculate sum of lengths of three strings
-    static int sumStringLengths(String str1, String str2, String str3) {
-        return str1.length() + str2.length() + str3.length();
+    static Double findAverage(int[] nums) {
+        int sumOfnums = 0;
+        double result;
+        for (int elements : nums) {
+            sumOfnums += elements;
+        }
+
+        result = (double) sumOfnums / nums.length;
+        return result;
+    }
+
+    // -------------------------------- Second Task Solutions -----------------------------
+    static void printStringLengthSum(String[] str) {
+        System.out.print("Entered String sum is: " + sumStringLengths(str));
+        countCharAndSpace(str);
+    }
+
+    // Calculate sum of lengths of strings
+    static int sumStringLengths(String[] str) {
+        int len = 0;
+        for (String element : str) {
+            len += element.length();
+        }
+        return len;
     }
 
     // Space Counter
-    static void countCharAndSpace(String str1, String str2, String str3) {
+    static void countCharAndSpace(String[] str) {
+        String concat = ""; // Initialize an empty string to concatenate elements
         int spaceCount = 0;
         int charCount;
-        String sentence = str1 + str2 + str3;
-        char[] charArray = sentence.toCharArray();
 
-        for (char c : charArray) {
-            if (c == ' ')
+        // Concatenate all elements
+        for (String elements : str) {
+            concat += elements;
+        }
+
+        // Convert the concat to a character array
+        char[] arr = concat.toCharArray();
+
+        // Count the number of spaces in the concatenated string
+        for (char element : arr) {
+            if (element == ' ')
                 spaceCount++;
         }
-        charCount = (sentence.length() - spaceCount);
-        System.out.println(" --> " + charCount + " of them are Character and " + spaceCount + " is Space");
+
+        charCount = (concat.length() - spaceCount);
+        System.out.println(" - (" + charCount + " of them are Character and " + spaceCount + " is Space)");
     }
 }
