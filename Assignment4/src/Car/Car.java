@@ -1,24 +1,35 @@
+package Car;
+
 public class Car {
 
+    private String brand;
     private String model;
     private String engineType;
     private String gearBoxType;
-    private String bodyStyle;
     private String color;
 
     public Car() {
-
+        // initialize attributes to default values
+        brand = "Unknown";
+        model = "Unknown";
+        engineType = "Unknown";
+        gearBoxType = "Unknown";
+        color = "Unknown";
     }
 
-    public Car(String model, String engineType, String gearBoxType, String bodyStyle, String color) {
+    public Car(String brand, String model, String engineType, String gearBoxType, String color) {
+        this.brand = brand;
         this.model = model;
         this.engineType = engineType;
         this.gearBoxType = gearBoxType;
-        this.bodyStyle = bodyStyle;
         this.color = color;
     }
 
     // --------------------Setters ----------------------
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
     public void setModel(String model) {
         this.model = model;
     }
@@ -35,11 +46,11 @@ public class Car {
         this.color = color;
     }
 
-    public void setBodyStyle(String bodyStyle) {
-        this.bodyStyle = bodyStyle;
-    }
 
     // ----------------------- Getters -----------------------------
+    public String getBrand() {
+        return brand;
+    }
 
     public String getModel() {
         return model;
@@ -51,10 +62,6 @@ public class Car {
 
     public String getGearBoxType() {
         return gearBoxType;
-    }
-
-    public String getBodyStyle() {
-        return bodyStyle;
     }
 
     public String getColor() {

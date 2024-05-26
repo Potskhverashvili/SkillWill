@@ -1,23 +1,34 @@
+import Car.Car;
+
 public class Main {
     public static void main(String[] args) {
-
-        // First object
+        // Create the first Car object
         Car car1 = new Car();
-        car1.setModel("BMW M3");
+        car1.setBrand("BMW");
+        car1.setModel("M3");
         car1.setEngineType("Petrol");
         car1.setGearBoxType("Manual");
-        car1.setBodyStyle("Coupe");
-        car1.setColor("SkyBlue");
+        car1.setColor("White");
+
+        // Create the second Car object
+        Car car2 = new Car("Mercedes", "E320", "Petrol", "Automatic", "Black");
+
+        // Print car details using car objects
+        printCarDetails(car1);
+        printCarDetails(car2);
 
 
-        // Second Object
-        Car car2 = new Car("Mercedes E320", "Petrol", "Automatic", "Sedan", "Black");
+    }
 
-        System.out.println(car2.getModel());
-        System.out.println(car2.getEngineType());
-        System.out.println(car2.getGearBoxType());
-        System.out.println(car2.getBodyStyle());
-        System.out.println(car2.getColor());
+    // ------------------------------------- Helper Functions -----------------------------
 
+    // function to print car details using a Car object
+    public static void printCarDetails(Car car) {
+        System.out.println("Brand: " + car.getBrand());
+        System.out.println("Model: " + car.getModel());
+        System.out.println("Engine Type: " + car.getEngineType());
+        System.out.println("Gearbox Type: " + car.getGearBoxType());
+        System.out.println("Color: " + car.getColor());
+        System.out.println("--------");
     }
 }
