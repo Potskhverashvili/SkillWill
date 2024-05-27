@@ -16,11 +16,9 @@ public class Main {
         // Print car details using car objects
         printCarDetails(car1);
         printCarDetails(car2);
-
-
     }
 
-    // ------------------------------------- Helper Functions -----------------------------
+    // ------------------------------------- Helper Function -----------------------------
 
     // function to print car details using a Car object
     public static void printCarDetails(Car car) {

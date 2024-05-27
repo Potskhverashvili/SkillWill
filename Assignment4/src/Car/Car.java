@@ -1,15 +1,14 @@
 package Car;
 
 public class Car {
-
     private String brand;
     private String model;
     private String engineType;
     private String gearBoxType;
     private String color;
 
+    // Default constructor with initialization
     public Car() {
-        // initialize attributes to default values
         brand = "Unknown";
         model = "Unknown";
         engineType = "Unknown";
@@ -17,6 +16,7 @@ public class Car {
         color = "Unknown";
     }
 
+    // Constructor with arguments
     public Car(String brand, String model, String engineType, String gearBoxType, String color) {
         this.brand = brand;
         this.model = model;
@@ -45,7 +45,6 @@ public class Car {
     public void setColor(String color) {
         this.color = color;
     }
-
 
     // ----------------------- Getters -----------------------------
     public String getBrand() {
