@@ -8,12 +8,13 @@ public class Main {
 
         // Task 2: Find the index of a specific target value in an integer array
         System.out.println("\n------------ Second Task ---------------------");
-        int[] numbers = {1, 2, 3, 4};
+        int[] numbers = {1, 2, 3, 4, 11, 55, 9};
         findTargetIndex(numbers, 2); // Search for the number 2 (exists)
         findTargetIndex(numbers, 7); // Search for the number 7 (doesn't exist)
     }
 
     //-------------------------------- Helper Functions ----------------------------
+
     /**
      * Prints each element of a string array along with its index.
      *
@@ -30,20 +31,20 @@ public class Main {
      * Prints the index of the first occurrence of the target value if found.
      *
      * @param numbers The array of integers to search.
-     * @param  target  The value to search for.
+     * @param target  The value to search for.
      */
     static void findTargetIndex(int[] numbers, int target) {
         boolean found = false;
         for (int i = 0; i < numbers.length; i++) {
             if (numbers[i] == target) {
-                System.out.println("Entered Number's Index is: " + i);
+                System.out.println("Number - " + target + " : found at index: " + i);
                 found = true;
                 break; //  Exit the loop after finding the number
             }
         }
         // If the loop finishes and found is still true, the number wasn't found
         if (!found) {
-            System.out.println("not found");
+            System.out.println("Number - " + target + " : not found");
         }
     }
 }
