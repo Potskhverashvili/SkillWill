@@ -40,8 +40,7 @@ public class Main {
 
     }
 
-    // --------------------------------------- Functions -----------------------------------------------
-    // Finds and returns the maximum value between two integer lists.
+    // --------------- Finds and returns the maximum value between two integer lists. -----------------
     static int findMaxBetweenLists(ArrayList<Integer> listA, ArrayList<Integer> listB) {
         //int max1 = Collections.max(listA);
         int max1 = findMaxValue(listA);
@@ -50,7 +49,7 @@ public class Main {
         return Math.max(max1, max2);
     }
 
-    // --------------------- Helpers ------------------------
+    // ------------------------------------------ Helpers ---------------------------------------------
     // Finds the maximum value within a single integer list.
     static int findMaxValue(ArrayList<Integer> list) {
         int maxvalue = list.get(0);
