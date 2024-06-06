@@ -29,7 +29,7 @@ public class Main {
         fillIntegerList(listA, 3);
         fillIntegerList(listB, 4);
 
-        // // Print lists.
+        // Print the contents of both lists
         System.out.print("First List: ");
         printIntegerList(listA);
         System.out.print("Second List: ");
@@ -40,16 +40,24 @@ public class Main {
 
     }
 
-    // --------------- Finds and returns the maximum value between two integer lists. -----------------
+    // --------------- FUNCTION: Finds and returns the maximum value between two integer lists. -----------------
     static int findMaxBetweenLists(ArrayList<Integer> listA, ArrayList<Integer> listB) {
-        //int max1 = Collections.max(listA);
+        /*
+        Alternative implementation using Collections.max()
+        int max1 = Collections.max(listA);
+        int max2 = Collections.max(listB);
+        */
         int max1 = findMaxValue(listA);
         int max2 = findMaxValue(listB);
 
+        /*
+        Alternative way to find the max value between two integers
         return Math.max(max1, max2);
+        */
+        return (max1 > max2) ? max1 : max2;
     }
 
-    // ------------------------------------------ Helpers ---------------------------------------------
+    // ------------------------------------------ HELPER FUNCTIONS ---------------------------------------------
     // Finds the maximum value within a single integer list.
     static int findMaxValue(ArrayList<Integer> list) {
         int maxvalue = list.get(0);
@@ -63,8 +71,8 @@ public class Main {
     // Fills a list with random integers up to a specified size.
     static void fillIntegerList(ArrayList<Integer> list, int size) {
         Random random = new Random();
-        for (int i = 0; i < size ; i++) {
-            list.add(random.nextInt(100));
+        for (int i = 0; i < size; i++) {
+            list.add(random.nextInt(100)); // Add a random number between 0 and 99
         }
     }
 
