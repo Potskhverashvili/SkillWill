@@ -3,81 +3,91 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
 
+        // ------------------------------------------- Task 1 ------------------------------------------
         System.out.println("------------- Task1 : Find common elements in two sets --------------");
-        // Create set1
-        Set<Integer> set1 = new HashSet<>();
-        set1.add(5);
-        set1.add(6);
-        set1.add(3);
-        set1.add(4);
 
-        // Create set2
-        Set<Integer> set2 = new HashSet<>();
-        set2.add(5);
-        set2.add(6);
-        set2.add(7);
-        set2.add(4);
+        // Create two sets of numbers to find common elements in
+        Set<Integer> numbersSet1 = new HashSet<>(Arrays.asList(5, 6, 3, 4));
+        Set<Integer> numbersSet2 = new HashSet<>(Arrays.asList(5, 6, 7, 4));
 
         // Print the original sets
-        System.out.println("First set: " + set1);
-        System.out.println("Second set: " + set2);
+        System.out.println("First set: " + numbersSet1);
+        System.out.println("Second set: " + numbersSet2);
 
-        // Find and print common elements
-        System.out.println("Same Elements: " + sameElements(set1, set2));
+        // Call a function to find and print the common elements
+        System.out.println("Same Elements: " + commonElements(numbersSet1, numbersSet2));
 
 
-        // --------------------------------------- Second Task ----------------------------------------
-        System.out.println("------------- Task2 ----------------");
+        // --------------------------------------------- Task 2 --------------------------------------------------
+        System.out.println("\n------------- Task 2: Max Car Production Year --------------");
 
+        // Create car objects
         Car car1 = new Car("Honda", "Black");
-        Car car2 = new Car("Toyota", "Withe");
+        Car car2 = new Car("Toyota", "White");
         Car car3 = new Car("BMW", "blue");
         Car car4 = new Car("Mercedes", "Red");
         Car car5 = new Car("Mazda", "Yellow");
-        Car car6 = new Car("Ford", "Withe");
+        Car car6 = new Car("Ford", "White");
 
+        // Create lists of cars
         List<Car> carList1 = new ArrayList<>(List.of(car1, car2, car3, car4));
         List<Car> carList2 = new ArrayList<>(List.of(car1, car3, car6));
-        List<Car> carList3 = new ArrayList<>(List.of(car1, car2, car3, car4));
+        List<Car> carList3 = new ArrayList<>(List.of(car1, car2, car3, car4, car5));
 
-        Map<Integer, List<Car>> carsMap = new HashMap<>();
-        carsMap.put(2019, carList1);
-        carsMap.put(2020, carList2);
-        carsMap.put(2021, carList3);
+        // Create a map to associate years with their car production lists
+        Map<Integer, List<Car>> carsByYear = new HashMap<>();
+        carsByYear.put(2019, carList1);
+        carsByYear.put(2020, carList2);
+        carsByYear.put(2021, carList3);
 
-        prodYears(carsMap);
-
+        // Call a function to determine and print the year with the most cars produced
+        System.out.println("The most cars produced in: " + findYearWithMaxCars(carsByYear));
     }
 
     // --------------------------------------------- FUNCTIONS -------------------------------------------------
-
-    // Find common elements in two sets
-    static Set<Integer> sameElements(Set<Integer> set1, Set<Integer> set2) {
-        Set<Integer> result = new HashSet<>();
+    // -------- Function to find common elements in two sets ----------
+    static Set<Integer> commonElements(Set<Integer> set1, Set<Integer> set2) {
+        Set<Integer> commonElements = new HashSet<>();
         for (Integer element : set1) {
-            // if (set2.contains(element)) - Alternative way
-            if (!set2.add(element)) { //If adding to set2 is false (element exists - it's same)
-                result.add(element);
+            //if (set2.contains(element)) // Alternative way
+            if (!set2.add(element)) { // If add to set2 fails (already exists)
+                commonElements.add(element);
             }
         }
-        return result;
+        return commonElements;
     }
 
+    // --- Function to find the year with the highest car production in a map ---
+    static int findYearWithMaxCars(Map<Integer, List<Car>> carsByYear) {
+        int carsYear = 0;
+        int maxCar = 0;
 
-    // --------------------------------------- Second Task ----------------------------------------
-    static void prodYears(Map<Integer, List<Car>> cars) {
+        // Iterate through each year (key) and its corresponding list of cars (value)
+        for (Map.Entry<Integer, List<Car>> entry : carsByYear.entrySet()) {
 
-        int year = 0;
-        int compare = 0;
-        Set<Integer> keys = cars.keySet();
-
-        for (Integer key : keys){
-            if (compare < cars.get(key).size()){
-                year = key;
-                compare = cars.get(key).size();
+            // If the current year has more cars than the previous, update
+            if (maxCar < entry.getValue().size()) {
+                maxCar = entry.getValue().size();
+                carsYear = entry.getKey();
             }
         }
-        System.out.println("Years: " + year);
+        return carsYear;
     }
+
+    // ------------------------ Second Version ---------------------
+    /*static int findYearWithMaxCars(Map<Integer, List<Car>> carsByYear) {
+        int carsYear = 0;
+        int maxCar = 0;
+        Set<Integer> keys = carsByYear.keySet();
+
+        for (Integer key : keys) {
+            if (maxCar < carsByYear.get(key).size()) {
+                maxCar = carsByYear.get(key).size();
+                carsYear = key;
+            }
+        }
+        return carsYear;
+    }
+*/
 }
 

@@ -6,10 +6,4 @@ public class Car {
         this.brandName = brandName;
         this.color = color;
     }
-
-
-    @Override
-    public String toString() {
-        return brandName + color;
-    }
 }
