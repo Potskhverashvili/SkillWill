@@ -1,9 +1,11 @@
 public class Vehicle {
 
+    // Private fields to encapsulate data and control access
     private String brand;
     private String modelName;
     private int releaseYear;
 
+    // Constructor
     Vehicle(String brand, String modelName, int releaseYear) {
         this.brand = brand;
         this.modelName = modelName;
@@ -22,7 +24,6 @@ public class Vehicle {
     public void setReleaseYear(int releaseYear) {
         this.releaseYear = releaseYear;
     }
-
 
     // -------------------------------- Getters -------------------------------
     public String getBrand() {
