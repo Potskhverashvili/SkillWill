@@ -38,9 +38,7 @@ public class Main {
                 }
                 default -> System.out.println(" - Invalid operation. Please try again. - ");
             }
-
         }
-
     }
 
     // ---------------------------------------------------------- Helper Functions ----------------------------------------
@@ -67,14 +65,12 @@ public class Main {
                 default -> System.out.println(" - Input correct operation - ");
             }
         }
-
-
     }
 
     // View All Task
     static void viewAllTask() {
         System.out.println(" --- Print all Task ----");
-        if (!tasksMap.isEmpty()){
+        if (!tasksMap.isEmpty()) {
             for (String key : tasksMap.keySet()) {
                 System.out.println(key);
             }
@@ -94,7 +90,42 @@ public class Main {
             System.out.println(taskToUpdate);
 
             // 2. Get Updated Details from User
-            //TODO definition what type task is
+            System.out.println("Enter new details (leave blank to keep current value):");
+            String newDescription = inputString("- New Description: ");
+
+            if (taskToUpdate instanceof BasicTask) {
+                // BasicTask only has description to Update
+                if (!newDescription.isEmpty()) {
+                    taskToUpdate.setDescription(newDescription);
+                }
+            } else if (taskToUpdate instanceof RepeatableTask) {
+                // RepeatableTask has description, repeat, and data
+                String newRepeat = inputString("- New Repeat: ");
+                String newData = inputString("- New Data: ");
+
+                if (!newDescription.isEmpty()) {
+                    taskToUpdate.setDescription(newDescription);
+                }
+                if (!newRepeat.isEmpty()) {
+                    ((RepeatableTask) taskToUpdate).setRepeat(newRepeat);
+                }
+                if (!newData.isEmpty()) {
+                    ((RepeatableTask) taskToUpdate).setData(newData);
+                }
+            } else if (taskToUpdate instanceof LimitedTimeTask) {
+                // LimitedTimeTask has description and deadline
+                String newDeadline = inputString("- New Deadline: ");
+
+                if (!newDescription.isEmpty()) {
+                    taskToUpdate.setDescription(newDescription);
+                }
+                if (!newDeadline.isEmpty()) {
+                    // Validate newDeadline (e.g., using DateTimeFormatter)
+                    ((LimitedTimeTask) taskToUpdate).setDeadline(newDeadline);
+                }
+            }
+
+            System.out.println("Task updated successfully!");
 
         } else {
             System.out.println(taskName + " < - This Task Doesn't Exist - ");
@@ -148,8 +179,8 @@ public class Main {
         System.out.println(" - Repeatable Task - ");
         String taskName = inputString("- Enter Task Name - : ");
         String description = inputString("- Enter Description - : ");
-        String repeat = inputString("- Enter Repeat - : ");
-        String data = inputString("- Input Date - : ");
+        String repeat = inputString("- Repeat - : ");
+        String data = inputString("- Date & Time - : ");
 
         RepeatableTask task = new RepeatableTask(userName, taskName, description, repeat, data);
 
@@ -163,7 +194,6 @@ public class Main {
 
     // Create Basic Task
     static void createBasicTask(String userName) {
-
         System.out.println(" - create Basic Task - ");
         String taskName = inputString("- Enter Task Name - : ");
         String description = inputString("- Enter Description - : ");
@@ -176,7 +206,6 @@ public class Main {
             tasksMap.put(task.taskName, task);
             System.out.println(" - Add successful! - ");
         }
-
     }
 
     // ----------------------------------------------- Input Helper Functions ----------------------------------------

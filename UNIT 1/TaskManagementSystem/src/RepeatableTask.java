@@ -1,6 +1,4 @@
 public class RepeatableTask extends Task {
-
-
     String repeat;
     String data;
 
@@ -9,6 +7,15 @@ public class RepeatableTask extends Task {
         this.repeat = repeat;
         this.data = data;
     }
+
+    public void setRepeat(String repeat) {
+        this.repeat = repeat;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
 
     @Override
     public String toString() {
