@@ -8,19 +8,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GreetingsController {
 
+    // A reference to the GreetingService (dependency injection)
     private  final GreetingService greetingService;
 
+    // Constructor for dependency injection of GreetingService
     public GreetingsController(GreetingService greetingService) {
         this.greetingService = greetingService;
     }
 
-    @GetMapping(value = "/hello")
+    // Defines an endpoint for "/hello/world"
+    @GetMapping(value = "/hello/world")
     public String greetings() {
-        return greetingService.getDefaultGreeting();
+        return greetingService.getHelloWorld();
     }
 
+    // Defines an endpoint for "/hello/{name}" where {name} is a path variable
     @GetMapping(value = "/hello/{name}")
-    public String greet(@PathVariable("name") String name) {
+    public String greet(@PathVariable String name) {
         return greetingService.getPersonalizedGreeting(name);
     }
 }
