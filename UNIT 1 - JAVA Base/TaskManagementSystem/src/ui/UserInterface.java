@@ -6,6 +6,9 @@ import model.RepeatableTask;
 import model.Task;
 import storage.TaskStorage;
 
+import static util.InputUtil.inputNumber;
+import static util.InputUtil.inputString;
+
 public class UserInterface {
 
     public void startApp() {
@@ -33,12 +36,15 @@ public class UserInterface {
     static void createTask(String userName) {
         Task task;
         while (true) {
+
             printTaskTypeMenu();
-            int taskType = inputNumber("- Enter tasks.Task Type Number - : ");
+
+            int taskType = inputNumber("- Enter Task Type Number - : ");
             if (taskType == 0) {
                 return;
             }
-            String taskName = inputString("- Enter tasks.Task Name - ");
+
+            String taskName = inputString("- Enter Task Name - ");
             String description = inputString("- Enter Description - ");
 
             switch (taskType) {
@@ -47,9 +53,10 @@ public class UserInterface {
                     new TaskStorage(taskName, task);
                     System.out.println("tasks.Task Save Successfully");
                 }
-                case 2 ->
-                        task = new RepeatableTask(userName, taskName, description, inputString("- Repeat: "), inputString("Data: "));
+                case 2 -> task = new RepeatableTask(userName, taskName, description, inputString("- Repeat: "), inputString("Data: "));
+
                 case 3 -> task = new BasicTask(userName, taskName, description);
+
                 default -> System.out.println(" - Input correct operation - ");
             }
 
@@ -89,7 +96,7 @@ public class UserInterface {
                 0. Exit""");
     }
 
-    static void printTaskTypeMenu() {
+     static public void printTaskTypeMenu() {
         System.out.println("""
                 \n- Choose tasks.Task Type - :\s
                 1. LimitedTimeTask
