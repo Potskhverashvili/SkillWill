@@ -35,6 +35,18 @@ public class CommentEntity {
     }
 
     // ------------- Setters and Getters -----------
+    public Long getPostId(){
+        return postEntity.getId();
+    }
+
+    public Long getOwnerId(){
+        return postEntity.getUserId();
+    }
+
+    public String getPostOwnerName(){
+        return  postEntity.getUserName();
+    }
+
     public String getComment() {
         return comment;
     }

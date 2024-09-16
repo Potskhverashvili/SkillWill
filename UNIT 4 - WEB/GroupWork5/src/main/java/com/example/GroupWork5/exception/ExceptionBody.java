@@ -19,7 +19,6 @@ public class ExceptionBody {
 
 // ------------------- Setters and Getters --------------------
 
-
     public String getTime() {
         return time;
     }

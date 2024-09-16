@@ -9,7 +9,7 @@ public class ViewPostMapper {
         ViewPost viewPost = new ViewPost();
         viewPost.setId(postEntity.getId());
         viewPost.setText(postEntity.getText());
-        viewPost.setOwnerUser(postEntity.getUserName());
+        viewPost.setOwnerUserId(postEntity.getUserId());
         return viewPost;
     }
 }

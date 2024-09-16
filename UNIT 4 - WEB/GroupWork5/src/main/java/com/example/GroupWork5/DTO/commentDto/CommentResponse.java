@@ -13,16 +13,28 @@ public class CommentResponse {
     @Size(min = 2, max = 128, message = "comment must between in 2-128")
     private String comment;
 
+    Long forPostId;
+
     // ----------------- Constructors -----------------------
     public CommentResponse() {
     }
 
-    public CommentResponse(String comment, Long id) {
+    public CommentResponse(String comment, Long forPostId, Long id) {
         this.comment = comment;
+        this.forPostId = forPostId;
         this.id = id;
     }
 
     // ---------------------- Setters and Getters ----------------------
+
+    public Long getForPostId() {
+        return forPostId;
+    }
+
+    public void setForPostId(Long forPostId) {
+        this.forPostId = forPostId;
+    }
+
     public @NotNull(message = "comment can not be null") @Size(min = 2, max = 128, message = "comment must between in 2-128") String getComment() {
         return comment;
     }

@@ -5,25 +5,25 @@ public class ViewPost {
 
     private String text;
 
-    String ownerUser;
+    Long ownerUserId;
 
     // ------------------- Constructors ---------------------
     public ViewPost() {
     }
 
-    public ViewPost(Long id, String text, String ownerUser) {
+    public ViewPost(Long id, String text, Long ownerUserId) {
         this.id = id;
         this.text = text;
-        this.ownerUser = ownerUser;
+        this.ownerUserId = ownerUserId;
     }
 
     // ---------------- Setters and Getters ------------------
-    public String getOwnerUser() {
-        return ownerUser;
+    public Long getOwnerUserId() {
+        return ownerUserId;
     }
 
-    public void setOwnerUser(String ownerUser) {
-        this.ownerUser = ownerUser;
+    public void setOwnerUserId(Long ownerUserId) {
+        this.ownerUserId = ownerUserId;
     }
 
     public Long getId() {

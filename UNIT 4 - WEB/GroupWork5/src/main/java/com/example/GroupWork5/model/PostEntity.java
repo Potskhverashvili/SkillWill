@@ -34,6 +34,10 @@ public class PostEntity {
         return userEntity.getUserName();
     }
 
+    public Long getUserId(){
+        return userEntity.getId();
+    }
+
     public Long getId() {
         return id;
     }

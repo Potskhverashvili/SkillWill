@@ -6,6 +6,7 @@ import com.example.GroupWork5.DTO.postDto.ViewPost;
 import com.example.GroupWork5.mappers.PostMapper;
 import com.example.GroupWork5.mappers.ViewPostMapper;
 import com.example.GroupWork5.model.PostEntity;
+import com.example.GroupWork5.repository.CommentRepository;
 import com.example.GroupWork5.repository.PostRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
@@ -22,10 +23,12 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final UserService userService;
+    private final CommentRepository commentRepository;
 
-    public PostService(PostRepository postRepository, UserService userService) {
+    public PostService(PostRepository postRepository, UserService userService, CommentRepository commentRepository) {
         this.postRepository = postRepository;
         this.userService = userService;
+        this.commentRepository = commentRepository;
     }
 
 
@@ -40,11 +43,11 @@ public class PostService {
     // ----------------------- View Post -------------------------
     // -- Get Concrete Post --
     public ViewPost viewConcretePost(Long id) {
-        return ViewPostMapper.mapEntityToView(findById(id));
+        return ViewPostMapper.mapEntityToView(findPostById(id));
     }
 
     // -- Get Post By id --
-    public PostEntity findById(Long id) {
+    public PostEntity findPostById(Long id) {
         Optional<PostEntity> byId = postRepository.findById(id);
         return byId.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found"));
     }
@@ -71,11 +74,37 @@ public class PostService {
         return posts;
     }
 
-
     // ---------------------- Update Post ------------------------
+    public PostResponse updatePost(Long userId, Long postId, String updateText) {
+        // Check if the post exists
+        PostEntity postToUpdate = findPostById(postId);
 
+        // Check is owned by the user
+        if (!postToUpdate.getUserId().equals(userId)) {
+            throw new IllegalArgumentException("You Do Not have permission to update it");
+        }
+
+        // Update the post text
+        postToUpdate.setText(updateText);
+
+        // Save the updated text to the database
+        postRepository.save(postToUpdate);
+
+        return PostMapper.mapEntityToResponse(postToUpdate);
+    }
 
     // ---------------------- Delete Post ------------------------
+    public String deletePost(Long userId, Long postId) {
+        // Check if the post exists
+        PostEntity postToDelete = findPostById(postId);
 
+        // Check is owned by the user
+        if (!postToDelete.getUserId().equals(userId)) {
+            throw new IllegalArgumentException("You Do Not have permission to delete it");
+        }
 
+        commentRepository.deleteCommentByPostId(postId);
+        postRepository.deleteById(postId);
+        return "Deleted post with ID: " + postId;
+    }
 }

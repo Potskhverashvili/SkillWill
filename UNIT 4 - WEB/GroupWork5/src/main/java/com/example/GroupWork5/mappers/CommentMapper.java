@@ -19,6 +19,8 @@ public class CommentMapper {
         CommentResponse commentResponse = new CommentResponse();
         commentResponse.setId(commentEntity.getId());
         commentResponse.setComment(commentEntity.getComment());
+        commentResponse.setForPostId(commentEntity.getPostId());
+
         return commentResponse;
     }
 }

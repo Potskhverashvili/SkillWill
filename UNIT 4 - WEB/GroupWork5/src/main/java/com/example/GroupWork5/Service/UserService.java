@@ -6,7 +6,6 @@ import com.example.GroupWork5.mappers.UserMapper;
 import com.example.GroupWork5.model.UserEntity;
 import com.example.GroupWork5.repository.UserRepository;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
