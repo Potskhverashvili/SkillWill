@@ -48,6 +48,7 @@ public class GlobalExceptionHandler {
 
         exceptionBody.setMessage(List.of(exception.getMessage()));
 
+
         return ResponseEntity.status(exception.getStatusCode()).body(exceptionBody);
     }
 
@@ -60,6 +61,7 @@ public class GlobalExceptionHandler {
         Instant instant = Instant.ofEpochMilli(System.currentTimeMillis());
         String formattedTime = instant.toString();
         exceptionBody.setTime(formattedTime);
+
         exceptionBody.setMessage(List.of(exception.getMessage()));
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exceptionBody);

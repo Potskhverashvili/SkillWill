@@ -39,7 +39,7 @@ public class CommentService {
     public Page<ViewComment> findAllComment(Integer size, Integer page) {
         Page<ViewComment> comments = commentRepository.findAllComment(PageRequest.of(size, page, Sort.Direction.ASC, "id"));
         if (comments.isEmpty()) {
-            throw new EntityNotFoundException("Comments doesn't exist");
+            throw new EntityNotFoundException("/comment-view-all/ - Comments doesn't exist");
         }
         return comments;
     }
@@ -49,7 +49,7 @@ public class CommentService {
 
         CommentEntity commentToUpdate = findCommentById(commentId);
         if (!commentToUpdate.getOwnerId().equals(userId)){
-            throw new IllegalArgumentException("You Do Not have permission to update it");
+            throw new IllegalArgumentException("/comment-update/ - You Do Not have permission to update it");
         }
         commentToUpdate.setComment(updateText);
         commentRepository.save(commentToUpdate);
@@ -68,7 +68,7 @@ public class CommentService {
 
         CommentEntity commentToDelete = findCommentById(commentId);
         if (!commentToDelete.getOwnerId().equals(userId)){
-            throw new IllegalArgumentException("You Do Not have permission to delete it");
+            throw new IllegalArgumentException("/comment-delete/ - You Do Not have permission to delete it");
         }
 
         commentRepository.deleteById(commentId);

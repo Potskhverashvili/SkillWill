@@ -36,6 +36,6 @@ public class UserService {
     // ----------------- Find by Id ------------------
     public UserEntity findById(Long id){
         Optional<UserEntity> byId = userRepository.findById(id);
-        return byId.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
+        return byId.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"/user/view/ - User not found"));
     }
 }

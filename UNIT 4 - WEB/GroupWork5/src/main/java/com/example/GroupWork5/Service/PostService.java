@@ -49,14 +49,14 @@ public class PostService {
     // -- Get Post By id --
     public PostEntity findPostById(Long id) {
         Optional<PostEntity> byId = postRepository.findById(id);
-        return byId.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found"));
+        return byId.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "post/view-concrete/ Post not found"));
     }
 
     // -- Get All Post --
     public Page<ViewPost> findAllPost(Integer size, Integer page) {
         Page<ViewPost> posts = postRepository.findAllPost(PageRequest.of(size, page, Sort.Direction.DESC, "id"));
         if (posts.isEmpty()) {
-            throw new EntityNotFoundException("Post doesn't exist");
+            throw new EntityNotFoundException("post/view-all/ Post not found");
         }
         return posts;
     }
@@ -69,7 +69,7 @@ public class PostService {
                         PageRequest.of(size, page, Sort.Direction.ASC, "id")
                 );
         if (posts.isEmpty()) {
-            throw new EntityNotFoundException("No posts found for user with ID: " + userId);
+            throw new EntityNotFoundException("post/all-of-user/ No posts found for user with ID: " + userId);
         }
         return posts;
     }
@@ -81,7 +81,7 @@ public class PostService {
 
         // Check is owned by the user
         if (!postToUpdate.getUserId().equals(userId)) {
-            throw new IllegalArgumentException("You Do Not have permission to update it");
+            throw new IllegalArgumentException("post/update/ You Do Not have permission to update it");
         }
 
         // Update the post text
@@ -100,7 +100,7 @@ public class PostService {
 
         // Check is owned by the user
         if (!postToDelete.getUserId().equals(userId)) {
-            throw new IllegalArgumentException("You Do Not have permission to delete it");
+            throw new IllegalArgumentException("post/delete/ You Do Not have permission to delete it");
         }
 
         commentRepository.deleteCommentByPostId(postId);
