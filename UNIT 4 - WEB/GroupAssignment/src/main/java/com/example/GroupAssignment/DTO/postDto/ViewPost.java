@@ -1,17 +1,11 @@
 package com.example.GroupAssignment.DTO.postDto;
 
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Setter
-@Getter
+@Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class ViewPost {
-    private Long id;
+    private Long postId;
     private String text;
-    Long ownerUserId;
+    private Long ownerUserId;
 }

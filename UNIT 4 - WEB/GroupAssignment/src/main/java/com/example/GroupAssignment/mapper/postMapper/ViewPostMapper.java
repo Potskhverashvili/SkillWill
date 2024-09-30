@@ -4,12 +4,7 @@ import com.example.GroupAssignment.DTO.postDto.ViewPost;
 import com.example.GroupAssignment.model.PostEntity;
 
 public class ViewPostMapper {
-
-    public static ViewPost mapEntityToView(PostEntity postEntity){
-        ViewPost viewPost = new ViewPost();
-        viewPost.setId(postEntity.getId());
-        viewPost.setText(postEntity.getText());
-        viewPost.setOwnerUserId(postEntity.getId());
-        return viewPost;
+    public static ViewPost mapPostEntityToView(PostEntity postEntity){
+        return new ViewPost(postEntity.getId(), postEntity.getText(),postEntity.getUserEntity().getId());
     }
 }

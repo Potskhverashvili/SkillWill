@@ -1,17 +1,11 @@
 package com.example.GroupAssignment.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 @Entity
 @Table(name = "users")
 public class UserEntity {
@@ -31,4 +25,14 @@ public class UserEntity {
 
     @Column(name = "birthdate")
     private LocalDate birthdate;
+
+    public UserEntity() {
+    }
+
+    public UserEntity(String userName, String name, String surname, LocalDate birthdate) {
+        this.userName = userName;
+        this.name = name;
+        this.surname = surname;
+        this.birthdate = birthdate;
+    }
 }

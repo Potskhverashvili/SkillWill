@@ -1,16 +1,11 @@
 package com.example.GroupAssignment.DTO.userDto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Setter
-@Getter
+@Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class UserResponse {
     private Long id;
     private String userName;

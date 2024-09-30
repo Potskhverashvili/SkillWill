@@ -4,17 +4,10 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
-
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class UserRequest {
 
     @NotNull(message = "userName can not be null")

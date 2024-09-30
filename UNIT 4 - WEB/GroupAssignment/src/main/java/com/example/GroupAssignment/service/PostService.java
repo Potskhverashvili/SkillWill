@@ -1,24 +1,20 @@
-/*
 package com.example.GroupAssignment.service;
-
 
 import com.example.GroupAssignment.DTO.postDto.PostRequest;
 import com.example.GroupAssignment.DTO.postDto.PostResponse;
 import com.example.GroupAssignment.DTO.postDto.ViewPost;
+import com.example.GroupAssignment.exception.CustomException;
 import com.example.GroupAssignment.mapper.postMapper.PostMapper;
 import com.example.GroupAssignment.mapper.postMapper.ViewPostMapper;
+import com.example.GroupAssignment.exception.ErrorMessage;
 import com.example.GroupAssignment.model.PostEntity;
 import com.example.GroupAssignment.repository.CommentRepository;
 import com.example.GroupAssignment.repository.PostRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.awt.print.Pageable;
 import java.util.Optional;
 
 @Service
@@ -34,32 +30,39 @@ public class PostService {
         this.commentRepository = commentRepository;
     }
 
-
     // ----------------------- Create Post -------------------------------
     public PostResponse createPost(Long userId, PostRequest postRequest) {
         PostEntity postEntity = PostMapper.mapRequestToEntity(postRequest);
-        postEntity.setUserEntity(userService.findById(userId));
-        PostEntity save = postRepository.save(postEntity);
-        return PostMapper.mapEntityToResponse(save);
+
+        postEntity.setUserEntity(userService.checkUserIfExist(userId));
+        PostEntity savePost = postRepository.save(postEntity);
+
+        return PostMapper.mapEntityToResponse(savePost);
     }
 
-    // ----------------------- View Post -------------------------
-    // -- Get Concrete Post --
-    public ViewPost viewConcretePost(Long id) {
-        return ViewPostMapper.mapEntityToView(findPostById(id));
-    }
+    // ------------------------ View Post --------------------------------
+    public ViewPost viewConcretePost(Long postId, Long userId) {
+        PostEntity post = checkPostIfExist(postId);
 
-    // -- Get Post By id --
-    public PostEntity findPostById(Long id) {
-        Optional<PostEntity> byId = postRepository.findById(id);
-        return byId.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "post/view-concrete/ Post not found"));
+        // Validation
+        if (!post.getId().equals(userId))
+            throw new CustomException(ErrorMessage.NOT_ALLOWED);
+
+        return ViewPostMapper.mapPostEntityToView(post);
     }
 
     // -- Get All Post --
     public Page<ViewPost> findAllPost(Integer size, Integer page) {
-        Page<ViewPost> posts = postRepository.findAllPost((Pageable) PageRequest.of(size, page, Sort.Direction.ASC, "id"));
+        Page<ViewPost> posts = postRepository.
+                findAllPost(
+                        PageRequest.of(
+                                size, page,
+                                Sort.Direction.ASC,
+                                "id")
+                );
+
         if (posts.isEmpty()) {
-            throw new EntityNotFoundException("post/view-all/ Post not found");
+            throw new CustomException(ErrorMessage.POST_NOT_FOUND);
         }
         return posts;
     }
@@ -69,29 +72,29 @@ public class PostService {
         Page<ViewPost> posts = postRepository
                 .findAllPostOfUser(
                         userId,
-                        (Pageable) PageRequest.of(size, page, Sort.Direction.ASC, "id")
+                        PageRequest.of(
+                                size, page,
+                                Sort.Direction.ASC,
+                                "id")
                 );
         if (posts.isEmpty()) {
-            throw new EntityNotFoundException("post/all-of-user/ No posts found for user with ID: " + userId);
+            throw new CustomException(ErrorMessage.POST_NOT_FOUND);
         }
         return posts;
     }
 
     // ---------------------- Update Post ------------------------
     public PostResponse updatePost(Long userId, Long postId, String updateText) {
-        // Check if the post exists
-        PostEntity postToUpdate = findPostById(postId);
+
+        PostEntity postToUpdate = checkPostIfExist(postId); // Check if the post exists
 
         // Check is owned by the user
-        if (!postToUpdate.getId().equals(userId)) {
-            throw new IllegalArgumentException("post/update/ You Do Not have permission to update it");
+        if (!postToUpdate.getUserEntity().getId().equals(userId)) {
+            throw new CustomException(ErrorMessage.NOT_ALLOWED);
         }
 
-        // Update the post text
-        postToUpdate.setText(updateText);
-
-        // Save the updated text to the database
-        postRepository.save(postToUpdate);
+        postToUpdate.setText(updateText); // Update the post text
+        postRepository.save(postToUpdate); // Save the updated text to the database
 
         return PostMapper.mapEntityToResponse(postToUpdate);
     }
@@ -99,16 +102,21 @@ public class PostService {
     // ---------------------- Delete Post ------------------------
     public String deletePost(Long userId, Long postId) {
         // Check if the post exists
-        PostEntity postToDelete = findPostById(postId);
+        PostEntity postToDelete = checkPostIfExist(postId);
 
         // Check is owned by the user
-        if (!postToDelete.getId().equals(userId)) {
-            throw new IllegalArgumentException("post/delete/ You Do Not have permission to delete it");
+        if (!postToDelete.getUserEntity().getId().equals(userId)) {
+            throw new CustomException(ErrorMessage.NOT_ALLOWED);
         }
 
         commentRepository.deleteCommentByPostId(postId);
         postRepository.deleteById(postId);
-        return "Deleted post with ID: " + postId;
+        return "Deleted Successfully Post with ID: " + postId;
+    }
+
+    // --------------------- Helper Method --------------------------
+    public PostEntity checkPostIfExist(Long id) {
+        Optional<PostEntity> byId = postRepository.findById(id);
+        return byId.orElseThrow(() -> new CustomException(ErrorMessage.POST_NOT_FOUND));
     }
 }
-*/

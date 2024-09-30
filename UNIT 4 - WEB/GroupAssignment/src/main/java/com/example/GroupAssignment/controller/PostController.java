@@ -1,4 +1,3 @@
-/*
 package com.example.GroupAssignment.controller;
 
 import com.example.GroupAssignment.DTO.postDto.PostRequest;
@@ -26,8 +25,8 @@ public class PostController {
     }
 
     @GetMapping("/view-concrete")
-    public ViewPost viewConcretePost(@RequestParam Long postId) {
-        return postService.viewConcretePost(postId);
+    public ViewPost viewConcretePost(@RequestParam Long postId, Long userId) {
+        return postService.viewConcretePost(postId, userId);
     }
 
     @GetMapping("/all-of-user")
@@ -47,6 +46,7 @@ public class PostController {
         return postService.findAllPost(size, page).getContent();
     }
 
+
     @PutMapping("/update")
     public PostResponse updatePost(
             @RequestParam("userId") Long userId,
@@ -61,7 +61,6 @@ public class PostController {
             @RequestParam("userId") Long userId,
             @RequestParam("postId") Long postId
     ) {
-        return postService.deletePost(userId,postId);
+        return postService.deletePost(userId, postId);
     }
 }
-*/

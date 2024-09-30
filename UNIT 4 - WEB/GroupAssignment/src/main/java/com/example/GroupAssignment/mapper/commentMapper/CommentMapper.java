@@ -1,7 +1,7 @@
 package com.example.GroupAssignment.mapper.commentMapper;
 
-import com.example.GroupAssignment.DTO.comentDto.CommentRequest;
-import com.example.GroupAssignment.DTO.comentDto.CommentResponse;
+import com.example.GroupAssignment.DTO.commentDto.CommentRequest;
+import com.example.GroupAssignment.DTO.commentDto.CommentResponse;
 import com.example.GroupAssignment.model.CommentEntity;
 
 public class CommentMapper {
@@ -16,10 +16,11 @@ public class CommentMapper {
 
     // ------------------ Entity to Response ----------------
     public static CommentResponse mapEntityToResponse(CommentEntity commentEntity) {
-        CommentResponse commentResponse = new CommentResponse();
-        commentResponse.setId(commentEntity.getId());
-        commentResponse.setComment(commentEntity.getComment());
-        commentResponse.setForPostId(commentEntity.getId());
-        return commentResponse;
+        return new CommentResponse(
+                commentEntity.getId(),
+                commentEntity.getComment(),
+                commentEntity.getUserEntity().getId(),
+                commentEntity.getPostEntity().getId()
+        );
     }
 }

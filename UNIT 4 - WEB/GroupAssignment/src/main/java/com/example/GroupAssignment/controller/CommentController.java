@@ -1,9 +1,8 @@
-/*
 package com.example.GroupAssignment.controller;
 
-import com.example.GroupAssignment.DTO.comentDto.CommentRequest;
-import com.example.GroupAssignment.DTO.comentDto.CommentResponse;
-import com.example.GroupAssignment.DTO.comentDto.ViewComment;
+import com.example.GroupAssignment.DTO.commentDto.CommentRequest;
+import com.example.GroupAssignment.DTO.commentDto.CommentResponse;
+import com.example.GroupAssignment.DTO.commentDto.ViewComment;
 import com.example.GroupAssignment.service.CommentService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -15,19 +14,16 @@ import java.util.List;
 public class CommentController {
 
     private final CommentService commentService;
-
     public CommentController(CommentService commentService) {
         this.commentService = commentService;
     }
 
-*/
-/*
     @PostMapping("/create")
     public CommentResponse createComment(
-            @RequestParam Long postId,
+            @RequestParam Long postId, Long userId,
             @RequestBody @Valid CommentRequest commentRequest
     ) {
-        return commentService.createComment(postId, commentRequest);
+        return commentService.createComment(userId, postId, commentRequest);
     }
 
     @GetMapping("/view-all")
@@ -35,9 +31,8 @@ public class CommentController {
             @RequestParam("size") Integer size,
             @RequestParam("page") Integer page
     ) {
-        return commentService.findAllComment(size, page).getContent();
+        return commentService.viewAllComment(size, page).getContent();
     }
-
 
     @PutMapping("/update")
     public CommentResponse updateComment(
@@ -54,7 +49,5 @@ public class CommentController {
             @RequestParam("commentId") Long commentId
     ) {
         return commentService.deleteComment(userId, commentId);
-    }*//*
-
+    }
 }
-*/

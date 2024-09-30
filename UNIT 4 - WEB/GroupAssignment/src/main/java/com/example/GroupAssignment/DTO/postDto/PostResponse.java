@@ -1,14 +1,9 @@
 package com.example.GroupAssignment.DTO.postDto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Setter
-@Getter
+@Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class PostResponse {
     private Long id;
     private String text;

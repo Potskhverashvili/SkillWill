@@ -8,26 +8,22 @@ public class UserMapper {
 
     // ------------------ Map to Entity --------------------
     public static UserEntity mapRequestToEntity(UserRequest userRequest) {
-
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUserName(userRequest.getUserName());
-        userEntity.setName(userRequest.getName());
-        userEntity.setSurname(userRequest.getSurname());
-        userEntity.setBirthdate(userRequest.getBirthdate());
-
-        return userEntity;
+        return new UserEntity(
+                userRequest.getUserName(),
+                userRequest.getName(),
+                userRequest.getSurname(),
+                userRequest.getBirthdate()
+        );
     }
 
     // ------------------ Entity to Response --------------------------
     public static UserResponse mapEntityToResponse(UserEntity userEntity) {
-        UserResponse userResponse = new UserResponse();
-
-        userResponse.setId(userEntity.getId());
-        userResponse.setUserName(userEntity.getUserName());
-        userResponse.setName(userEntity.getName());
-        userResponse.setSurname(userEntity.getSurname());
-        userResponse.setBirthdate(userEntity.getBirthdate());
-
-        return userResponse;
+        return new UserResponse(
+                userEntity.getId(),
+                userEntity.getUserName(),
+                userEntity.getName(),
+                userEntity.getSurname(),
+                userEntity.getBirthdate()
+        );
     }
 }

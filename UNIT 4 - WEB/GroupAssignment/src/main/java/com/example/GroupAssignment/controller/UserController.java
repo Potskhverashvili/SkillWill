@@ -15,11 +15,9 @@ public class UserController {
 
     // -------------------------- Constructor --------------------------
     private final UserService userService;
-
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
 
     // ------------------------- Methods -------------------------
     @PostMapping("/create")
@@ -35,5 +33,10 @@ public class UserController {
    @GetMapping("/view-all")
     public List<UserEntity> viewAllUser(){
         return userService.viewAllUser();
+   }
+
+   @DeleteMapping("/delete-by-id")
+    public String deleteUser(@RequestParam Long id){
+        return userService.deleteUser(id);
    }
 }
