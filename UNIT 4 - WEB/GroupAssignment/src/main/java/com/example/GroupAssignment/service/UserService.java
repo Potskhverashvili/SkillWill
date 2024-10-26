@@ -2,49 +2,31 @@ package com.example.GroupAssignment.service;
 
 import com.example.GroupAssignment.DTO.userDto.UserRequest;
 import com.example.GroupAssignment.DTO.userDto.UserResponse;
-import com.example.GroupAssignment.client.UserApiClient;
-import com.example.GroupAssignment.DTO.userApiDto.UserApiResponse;
 import com.example.GroupAssignment.exception.CustomException;
 import com.example.GroupAssignment.mapper.userMapper.UserMapper;
 import com.example.GroupAssignment.exception.ErrorMessage;
 import com.example.GroupAssignment.model.UserEntity;
 import com.example.GroupAssignment.repository.CommentRepository;
 import com.example.GroupAssignment.repository.UserRepository;
-import jakarta.annotation.PostConstruct;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
-import static com.example.GroupAssignment.mapper.userClientMapper.UserClientMapper.mapUserClientToUserEntity;
 
 @Service
 public class UserService {
+
+    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
-    private final UserApiClient userApiClient;
+    private static final String secret = "KEY-SECRET-KEY-123456568767865456565654";
 
-    public UserService(UserRepository userRepository, CommentRepository commentRepository, UserApiClient userApiClient) {
-        this.userRepository = userRepository;
+    public UserService(CommentRepository commentRepository, PasswordEncoder passwordEncoder, UserRepository userRepository) {
         this.commentRepository = commentRepository;
-        this.userApiClient = userApiClient;
-    }
-
-    // --------------------- Save User Api Client --------------------------
-    @PostConstruct
-    public void fetchAndSaveUsersFromApi() {
-        UserApiResponse usersFromApi = userApiClient.getAllUsers();
-        List<UserEntity> userEntities = mapUserClientToUserEntity(usersFromApi);
-
-        // Filter existing users by username
-        List<UserEntity> newUsers = userEntities.stream()
-                .filter(userEntity -> userRepository.findUserByUserName(userEntity.getUserName()).isEmpty())
-                .collect(Collectors.toList());
-
-        if (!newUsers.isEmpty()) {
-            userRepository.saveAll(newUsers);
-        }
+        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
     }
 
     // ----------------- Create User ---------------
@@ -85,4 +67,5 @@ public class UserService {
         Optional<UserEntity> byId = userRepository.findById(id);
         return byId.orElseThrow(() -> new CustomException(ErrorMessage.USER_NOT_FOUND));
     }
+
 }

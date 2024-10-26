@@ -40,8 +40,6 @@ public class PostService {
         return PostMapper.mapEntityToResponse(savePost);
     }
 
-    //TODO
-    // ------------------------ View Post --------------------------------
     public ViewPost viewConcretePost(Long postId, Long userId) {
         PostEntity post = checkPostIfExist(postId);
 
