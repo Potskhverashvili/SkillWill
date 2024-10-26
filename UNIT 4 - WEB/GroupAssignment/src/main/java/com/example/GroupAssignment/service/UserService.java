@@ -10,10 +10,12 @@ import com.example.GroupAssignment.exception.ErrorMessage;
 import com.example.GroupAssignment.model.UserEntity;
 import com.example.GroupAssignment.repository.CommentRepository;
 import com.example.GroupAssignment.repository.UserRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.example.GroupAssignment.mapper.userClientMapper.UserClientMapper.mapUserClientToUserEntity;
 
@@ -30,20 +32,18 @@ public class UserService {
     }
 
     // --------------------- Save User Api Client --------------------------
+    @PostConstruct
     public void fetchAndSaveUsersFromApi() {
-        // Fetch users from the API
         UserApiResponse usersFromApi = userApiClient.getAllUsers();
-
-        // Map API response objects to local entities
         List<UserEntity> userEntities = mapUserClientToUserEntity(usersFromApi);
 
-        final boolean anyMatch = userEntities
-                .stream()
-                .anyMatch(userEntity -> userRepository.findUserByUserName(userEntity.getUserName()).isPresent());
+        // Filter existing users by username
+        List<UserEntity> newUsers = userEntities.stream()
+                .filter(userEntity -> userRepository.findUserByUserName(userEntity.getUserName()).isEmpty())
+                .collect(Collectors.toList());
 
-        // Save new users if there are no duplicates
-        if (!userEntities.isEmpty() && !anyMatch) {
-            userRepository.saveAll(userEntities);
+        if (!newUsers.isEmpty()) {
+            userRepository.saveAll(newUsers);
         }
     }
 

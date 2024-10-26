@@ -5,7 +5,8 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
+@Setter
+@Getter
 @Entity
 @Table(name = "users")
 public class UserEntity {

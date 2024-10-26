@@ -3,7 +3,8 @@ package com.example.GroupAssignment.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Data
+@Setter
+@Getter
 @Entity
 @Table(name = "post")
 public class PostEntity {

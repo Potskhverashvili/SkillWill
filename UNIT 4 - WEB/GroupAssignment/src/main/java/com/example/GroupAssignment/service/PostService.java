@@ -40,12 +40,13 @@ public class PostService {
         return PostMapper.mapEntityToResponse(savePost);
     }
 
+    //TODO
     // ------------------------ View Post --------------------------------
     public ViewPost viewConcretePost(Long postId, Long userId) {
         PostEntity post = checkPostIfExist(postId);
 
         // Validation
-        if (!post.getId().equals(userId))
+        if (!post.getUserEntity().getId().equals(userId))
             throw new CustomException(ErrorMessage.NOT_ALLOWED);
 
         return ViewPostMapper.mapPostEntityToView(post);
