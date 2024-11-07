@@ -15,15 +15,20 @@ public class UserRequest {
     @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "userName must be only letters or numbers")
     private String userName;
 
-    @NotNull(message = "name can not be null")
+    @NotNull(message = "firstName can not be null")
     @Size(min = 2, max = 32, message = "name must be between 2-32")
     @Pattern(regexp = "^[a-zA-Z]+$", message = "name must be only letters")
-    private String name;
+    private String firstName;
 
-    @NotNull(message = "surname can not be null")
+    @NotNull(message = "lastName can not be null")
     @Size(min = 2, max = 64, message = "surname must be between 2-64")
     @Pattern(regexp = "^[a-zA-Z]+$", message = "surname must be only letters")
-    private String surname;
+    private String lastName;
+
+    @NotNull(message = "lastName can not be null")
+    @Size(min = 2, max = 64, message = "surname must be between 2-64")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "surname must be only letters")
+    private String password;
 
     @NotNull(message = "birthdate can not be null")
     @Past(message = "birthdate can not be in future")

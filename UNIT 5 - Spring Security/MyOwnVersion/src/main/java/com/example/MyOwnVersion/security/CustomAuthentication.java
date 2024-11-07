@@ -1,4 +1,4 @@
-package com.example.GroupAssignment.security;
+package com.example.MyOwnVersion.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -7,21 +7,19 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.Collection;
 import java.util.List;
 
-public class CustomAuthentication implements Authentication {
+public class CustomAuthentication  implements Authentication {
 
-    private final String role;
-
-    private final String userName;
-
-    private final Long userId;
-
+    private final  String role;
+    private  final String userName;
+    private final long userid;
     private boolean authenticated;
 
-    public CustomAuthentication(String role, String userName, Long longId) {
+
+    public CustomAuthentication(String role, String userName, long userid){
         this.role = role;
-        this.userName = userName;
-        this.userId = longId;
-        this.authenticated = true;
+        this.userName =userName;
+        this.userid = userid;
+        this.authenticated =true;
     }
 
     @Override
@@ -41,7 +39,7 @@ public class CustomAuthentication implements Authentication {
 
     @Override
     public Object getPrincipal() {
-        return userId;
+        return userid;
     }
 
     @Override
@@ -59,4 +57,3 @@ public class CustomAuthentication implements Authentication {
         return userName;
     }
 }
-

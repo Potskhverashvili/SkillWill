@@ -10,8 +10,8 @@ public class UserMapper {
     public static UserEntity mapRequestToEntity(UserRequest userRequest) {
         return new UserEntity(
                 userRequest.getUserName(),
-                userRequest.getName(),
-                userRequest.getSurname(),
+                userRequest.getFirstName(),
+                userRequest.getLastName(),
                 userRequest.getBirthdate()
         );
     }

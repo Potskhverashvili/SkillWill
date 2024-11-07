@@ -1,4 +1,4 @@
-package com.example.GroupAssignment.security;
+package com.example.MyOwnVersion.security;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -15,17 +15,17 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfig {
-
     @Bean
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http,
-            @Qualifier("JwtBasedAuthenticationFilter") OncePerRequestFilter authenticationProcessingFilter) throws Exception {
-
-        http
-                .addFilterBefore(authenticationProcessingFilter, UsernamePasswordAuthenticationFilter.class)
-                .authorizeHttpRequests((x -> x.requestMatchers("/login", "/register").permitAll().anyRequest().authenticated()))
-                .csrf((AbstractHttpConfigurer::disable));
-
+            @Qualifier("JwtBasedAuthentication")
+            OncePerRequestFilter authenticationProcessFilter
+    ) throws Exception {
+        http.addFilterBefore(authenticationProcessFilter, UsernamePasswordAuthenticationFilter.class)
+                .authorizeHttpRequests(x -> x.requestMatchers("/login", "/register").permitAll().anyRequest().authenticated())
+                .csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
 }
+
+
