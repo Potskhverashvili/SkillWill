@@ -28,5 +28,4 @@ public class PlaylistEntity {
             inverseJoinColumns = @JoinColumn(name = "music_id")
     )
     private List<MusicEntity> songs;
-
 }

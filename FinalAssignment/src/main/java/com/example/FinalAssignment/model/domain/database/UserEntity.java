@@ -43,5 +43,4 @@ public class UserEntity {
     @Column(name = "user_status", nullable = false)
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
-
 }
