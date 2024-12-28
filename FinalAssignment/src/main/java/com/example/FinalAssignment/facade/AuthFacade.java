@@ -92,9 +92,13 @@ public class AuthFacade {
         return new CustomAuthentication(role, username, id);
     }
 
-    // -------------------- Helper ----------------------
-    @AssertTrue(message = "Invalid role. Only ROLE_USER or ROLE_ARTIST are allowed.")
-    public boolean isRoleValid(UserRole role) {
-        return role == UserRole.ROLE_USER || role == UserRole.ROLE_ARTIST;
+
+    // ------------------------- get Info From Token -------------------------------
+    public String getUsernameFromToken(String token) {
+        Jws<Claims> claimsJws = Jwts.parser().verifyWith(Keys.hmacShaKeyFor(secret.getBytes()))
+                .build().parseSignedClaims(token);
+        Claims payload = claimsJws.getPayload();
+        return payload.get("username", String.class);
     }
+
 }

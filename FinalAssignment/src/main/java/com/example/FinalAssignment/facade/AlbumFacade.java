@@ -5,27 +5,51 @@ import com.example.FinalAssignment.model.dto.AlbumDto;
 import com.example.FinalAssignment.model.enums.AlbumStatus;
 import com.example.FinalAssignment.model.mapper.AlbumMapper;
 import com.example.FinalAssignment.model.param.AddAlbumParam;
-import com.example.FinalAssignment.security.AddAlbumService;
+import com.example.FinalAssignment.model.param.UpdateAlbumParam;
+import com.example.FinalAssignment.security.JwtService;
+import com.example.FinalAssignment.service.AlbumService;;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
+
 
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class AlbumFacade {
 
-    private final AddAlbumService albumService;
+    private final AlbumService albumService;
+    private final JwtService jwtService;
 
     // ------------------------------- Add Album --------------------------------
-    public AlbumDto addAlbum(AddAlbumParam addAlbumParam) {
+    public AlbumDto addAlbum(AddAlbumParam addAlbumParam, HttpServletRequest request) {
         AlbumEntity album = new AlbumEntity();
         album.setAlbumName(addAlbumParam.getAlbumName());
         album.setAlbumStatus(AlbumStatus.ACTIVE);
+        album.setUserEntity(jwtService.getUser(request));
         albumService.saveAlbum(album);
         return AlbumMapper.toAlbumDto(album);
+    }
+
+    public AlbumDto updateAlbum(UpdateAlbumParam param, HttpServletRequest request) {
+        return AlbumMapper.toAlbumDto(albumService.updateAlbum(param, jwtService.getUser(request)));
+    }
+
+    public List<AlbumDto> getAll() {
+        return albumService.getAll().stream()
+                .map(AlbumMapper::toAlbumDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<AlbumDto> getUserPlaylists(HttpServletRequest request) {
+        return albumService.getUserPlaylists(jwtService.getUser(request)).stream()
+                .map(AlbumMapper::toAlbumDto)
+                .collect(Collectors.toList());
+    }
+
+    public void delete(Long albumId, HttpServletRequest request) {
+        albumService.deleteAlbum(albumId, jwtService.getUser(request));
     }
 }

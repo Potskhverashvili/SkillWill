@@ -13,8 +13,9 @@ import java.util.Set;
 @Setter
 @RequiredArgsConstructor
 @Entity()
-@Table(name = "album")
+@Table(name = "album_entity")
 public class AlbumEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "album_id")
@@ -23,15 +24,16 @@ public class AlbumEntity {
     @Column(name = "album_name", nullable = false)
     private String albumName;
 
-    @OneToMany(mappedBy = "musicAlbumEntity")
-    private Set<MusicEntity> music;
-
     @Column(name = "album_status", nullable = false)
     @Enumerated(EnumType.STRING)
     private AlbumStatus albumStatus;
 
-    /*@ManyToOne()
-    @Column(name = "ownerId")
-    private UserEntity userEntity;*/
+    // -------------------- Relations ----------------------
+    @ManyToOne()
+    @JoinColumn(name = "ownerId")
+    private UserEntity userEntity;
+
+    @OneToMany(mappedBy = "musicAlbumEntity")
+    private Set<MusicEntity> music;
 
 }
