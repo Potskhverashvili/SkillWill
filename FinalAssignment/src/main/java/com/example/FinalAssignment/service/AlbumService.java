@@ -24,6 +24,7 @@ public class AlbumService {
         albumRepository.saveAndFlush(album);
     }
 
+
     public AlbumEntity updateAlbum(UpdateAlbumParam param, UserEntity loggedUser){
         AlbumEntity album = getById(param.getAlbumId());
         if(!album.getUserEntity().getId().equals(loggedUser.getId()) && !loggedUser.getRole().equals(UserRole.ROLE_ADMIN)){

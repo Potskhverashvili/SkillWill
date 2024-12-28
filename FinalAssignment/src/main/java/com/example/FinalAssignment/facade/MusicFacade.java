@@ -60,6 +60,7 @@ public class MusicFacade {
     }
 
 
+    // ----------------------------- Delete ---------------------------------
     public void deleteMusic(Long musicId, HttpServletRequest request) {
         MusicEntity music = musicService.getById(musicId);
         UserEntity loggedUser = jwtService.getUser(request);

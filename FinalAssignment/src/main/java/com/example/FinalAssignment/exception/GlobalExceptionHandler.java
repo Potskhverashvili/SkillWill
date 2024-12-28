@@ -40,22 +40,16 @@ public class GlobalExceptionHandler {
     //Matches in Database Exception
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ExceptionBody> handleDataIntegrityViolationException(DataIntegrityViolationException e, HttpServletRequest request) {
-
         String str = e.getMostSpecificCause().getMessage();
-
         String message = str.split("=")[1];
-
         ExceptionBody exceptionBody = new ExceptionBody(HttpStatus.CONFLICT, message, LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS), request.getRequestURI());
-
         return ResponseEntity.status(HttpStatus.CONFLICT).body(exceptionBody);
 
     }
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ExceptionBody> handleClientErrorException(RuntimeException e, HttpServletRequest request) {
-
         ExceptionBody exceptionBody = new ExceptionBody(HttpStatus.INTERNAL_SERVER_ERROR, "Unexpected error occurred!", LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exceptionBody);
     }
-
 }

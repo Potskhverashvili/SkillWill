@@ -16,11 +16,9 @@ public class UserValidator {
         return userId == AuthService.getPrincipalDatabaseId();
     }
 
-
     // --------------- Check Admin -------------------
     public boolean checkIfAdmin() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
     }
-
 }

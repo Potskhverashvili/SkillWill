@@ -11,14 +11,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class JwtService {
     private final AuthFacade authFacade;
-
     private final UserRepository userRepository;
 
-    public UserEntity getUser(HttpServletRequest request){
+    public UserEntity getUser(HttpServletRequest request) {
         String authenticationHeader = request.getHeader("authorization");
         String token = authenticationHeader.replace("Bearer ", "");
         String username = authFacade.getUsernameFromToken(token);
-        return userRepository.findUserByUsername(username).orElseThrow(()->new RuntimeException("user not found"));
+        return userRepository.findUserByUsername(username).orElseThrow(() -> new RuntimeException("user not found"));
     }
 }
 
